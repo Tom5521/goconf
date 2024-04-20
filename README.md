@@ -2,6 +2,13 @@
 
 This is a preferences API inspired by that of [fyne](https://docs.fyne.io/explore/preferences.html)
 
+Create this basically because, the fyne configuration api saves its files in
+`[configuration path]/fyne/appID/config.json`
+and with this case, I want it to be saved in
+`[configuration path]/appID/config.json` without any trace of that
+framework, since it is a GUI framework, and I would like to be able to apply
+that to a CLI application
+
 ## Usage/Examples
 
 ```go
