@@ -27,7 +27,12 @@ func (p *prefs) Read(key string) any {
 }
 
 func (p *prefs) Bool(key string) bool {
-	return p.Map[key].(bool)
+	v, ok := p.Map[key]
+	if !ok {
+		v = false
+		p.Set(key, v)
+	}
+	return v.(bool)
 }
 
 func (p *prefs) SetBool(key string, value bool) {
@@ -35,7 +40,12 @@ func (p *prefs) SetBool(key string, value bool) {
 }
 
 func (p *prefs) BoolList(key string) []bool {
-	return p.Map[key].([]bool)
+	v, ok := p.Map[key]
+	if !ok {
+		v = []bool{}
+		p.Set(key, v)
+	}
+	return v.([]bool)
 }
 
 func (p *prefs) SetBoolList(key string, value []bool) {
@@ -43,7 +53,12 @@ func (p *prefs) SetBoolList(key string, value []bool) {
 }
 
 func (p *prefs) Float(key string) float64 {
-	return p.Map[key].(float64)
+	v, ok := p.Map[key]
+	if !ok {
+		v = 0
+		p.Set(key, v)
+	}
+	return v.(float64)
 }
 
 func (p *prefs) SetFloat(key string, value float64) {
@@ -51,7 +66,12 @@ func (p *prefs) SetFloat(key string, value float64) {
 }
 
 func (p *prefs) FloatList(key string) []float64 {
-	return p.Map[key].([]float64)
+	v, ok := p.Map[key]
+	if !ok {
+		v = []float64{}
+		p.Set(key, v)
+	}
+	return v.([]float64)
 }
 
 func (p *prefs) SetFloatList(key string, value []float64) {
@@ -59,7 +79,12 @@ func (p *prefs) SetFloatList(key string, value []float64) {
 }
 
 func (p *prefs) Int(key string) int {
-	return p.Map[key].(int)
+	v, ok := p.Map[key]
+	if !ok {
+		v = 0
+		p.Set(key, v)
+	}
+	return v.(int)
 }
 
 func (p *prefs) SetInt(key string, value int) {
@@ -67,7 +92,12 @@ func (p *prefs) SetInt(key string, value int) {
 }
 
 func (p *prefs) IntList(key string) []int {
-	return p.Map[key].([]int)
+	v, ok := p.Map[key]
+	if !ok {
+		v = []int{}
+		p.Set(key, v)
+	}
+	return v.([]int)
 }
 
 func (p *prefs) SetIntList(key string, value []int) {
@@ -75,7 +105,12 @@ func (p *prefs) SetIntList(key string, value []int) {
 }
 
 func (p *prefs) String(key string) string {
-	return p.Map[key].(string)
+	v, ok := p.Map[key]
+	if !ok {
+		v = ""
+		p.Set(key, v)
+	}
+	return v.(string)
 }
 
 func (p *prefs) SetString(key string, value string) {
@@ -83,7 +118,12 @@ func (p *prefs) SetString(key string, value string) {
 }
 
 func (p *prefs) StringList(key string) []string {
-	return p.Map[key].([]string)
+	v, ok := p.Map[key]
+	if !ok {
+		v = []string{}
+		p.Set(key, v)
+	}
+	return v.([]string)
 }
 
 func (p *prefs) SetStringList(key string, value []string) {
