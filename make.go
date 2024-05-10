@@ -46,7 +46,7 @@ func (p *prefs) path() (string, error) {
 		return path, err
 	}
 
-	basePath := fmt.Sprintf("%s/", usr.HomeDir)
+	basePath := usr.HomeDir + "/"
 
 	unixOS := []string{
 		"netbsd",

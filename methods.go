@@ -42,7 +42,7 @@ func (p *prefs) SetBool(key string, value bool) {
 func (p *prefs) BoolList(key string) []bool {
 	v, ok := p.Map[key]
 	if !ok {
-		v = []bool{}
+		v = []bool(nil)
 		p.Set(key, v)
 	}
 	return v.([]bool)
@@ -55,7 +55,7 @@ func (p *prefs) SetBoolList(key string, value []bool) {
 func (p *prefs) Float(key string) float64 {
 	v, ok := p.Map[key]
 	if !ok {
-		v = 0
+		v = 0.0
 		p.Set(key, v)
 	}
 	return v.(float64)
@@ -68,7 +68,7 @@ func (p *prefs) SetFloat(key string, value float64) {
 func (p *prefs) FloatList(key string) []float64 {
 	v, ok := p.Map[key]
 	if !ok {
-		v = []float64{}
+		v = []float64(nil)
 		p.Set(key, v)
 	}
 	return v.([]float64)
@@ -94,7 +94,7 @@ func (p *prefs) SetInt(key string, value int) {
 func (p *prefs) IntList(key string) []int {
 	v, ok := p.Map[key]
 	if !ok {
-		v = []int{}
+		v = []int(nil)
 		p.Set(key, v)
 	}
 	return v.([]int)
@@ -120,7 +120,7 @@ func (p *prefs) SetString(key string, value string) {
 func (p *prefs) StringList(key string) []string {
 	v, ok := p.Map[key]
 	if !ok {
-		v = []string{}
+		v = []string(nil)
 		p.Set(key, v)
 	}
 	return v.([]string)

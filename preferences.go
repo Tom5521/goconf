@@ -1,6 +1,6 @@
 package conf
 
-// Preferences describes the ways that an app can save and load user preferences
+// Preferences describes the ways that an app can save and load user preferences.
 type Preferences interface {
 	Read(key string) any
 	Set(key string, value any)
