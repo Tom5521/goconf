@@ -7,7 +7,7 @@ import (
 )
 
 func (p *prefs) writeMap() {
-	d, err := json.Marshal(p.Map)
+	d, err := json.MarshalIndent(p.Map, "", "	")
 	if err != nil {
 		msg.Error(err)
 	}
