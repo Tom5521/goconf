@@ -43,7 +43,6 @@ func newPrefs(id string) (p *prefs, err error) {
 func (p *prefs) path() (path string, err error) {
 	var (
 		usr      *user.User
-		unixOS   []string
 		basePath string
 		isUnix   bool
 	)
@@ -54,7 +53,7 @@ func (p *prefs) path() (path string, err error) {
 
 	basePath = usr.HomeDir + "/"
 
-	unixOS = []string{
+	unixOS := [...]string{
 		"netbsd",
 		"linux",
 		"openbsd",
