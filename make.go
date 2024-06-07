@@ -8,6 +8,8 @@ import (
 	"runtime"
 )
 
+const modePerm = 0600
+
 type prefs struct {
 	ID         string
 	Path       string
@@ -79,20 +81,24 @@ func (p *prefs) path() (path string, err error) {
 
 func (p *prefs) new() (err error) {
 	if _, err = os.Stat(p.Path); os.IsNotExist(err) {
-		err = os.MkdirAll(p.Path, os.ModePerm)
+		err = os.MkdirAll(p.Path, modePerm)
 		if err != nil {
 			return err
 		}
 	}
-	err = p.write("{}")
+	err = p.writestr("{}")
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *prefs) write(data string) error {
-	return os.WriteFile(p.ConfigFile, []byte(data), os.ModePerm)
+func (p *prefs) writestr(data string) error {
+	return os.WriteFile(p.ConfigFile, []byte(data), modePerm)
+}
+
+func (p *prefs) write(data []byte) error {
+	return os.WriteFile(p.ConfigFile, data, modePerm)
 }
 
 func (p *prefs) read() (m map[string]any, err error) {

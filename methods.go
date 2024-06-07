@@ -11,7 +11,7 @@ func (p *prefs) writeMap() {
 	if err != nil {
 		msg.Error(err)
 	}
-	err = p.write(string(d))
+	err = p.write(d)
 	if err != nil {
 		msg.Error(err)
 	}
