@@ -16,9 +16,8 @@ type prefs struct {
 	Map        map[string]any
 }
 
-func newPrefs(id string) (*prefs, error) {
-	var err error
-	p := new(prefs)
+func newPrefs(id string) (p *prefs, err error) {
+	p = new(prefs)
 	p.ID = id
 	p.Path, err = p.path()
 	if err != nil {
@@ -39,22 +38,27 @@ func newPrefs(id string) (*prefs, error) {
 	return p, nil
 }
 
-func (p *prefs) path() (string, error) {
-	var path string
-	usr, err := user.Current()
+func (p *prefs) path() (path string, err error) {
+	var (
+		usr      *user.User
+		unixOS   []string
+		basePath string
+		isUnix   bool
+	)
+	usr, err = user.Current()
 	if err != nil {
-		return path, err
+		return
 	}
 
-	basePath := usr.HomeDir + "/"
+	basePath = usr.HomeDir + "/"
 
-	unixOS := []string{
+	unixOS = []string{
 		"netbsd",
 		"linux",
 		"openbsd",
 		"darwin",
 	}
-	isUnix := func() bool {
+	isUnix = func() bool {
 		for _, o := range unixOS {
 			if runtime.GOOS == o {
 				return true
@@ -70,17 +74,17 @@ func (p *prefs) path() (string, error) {
 		path = fmt.Sprintf("%s\\AppData\\Roaming\\%s\\", basePath, p.ID)
 	}
 
-	return path, nil
+	return
 }
 
-func (p *prefs) new() error {
-	if _, err := os.Stat(p.Path); os.IsNotExist(err) {
+func (p *prefs) new() (err error) {
+	if _, err = os.Stat(p.Path); os.IsNotExist(err) {
 		err = os.MkdirAll(p.Path, os.ModePerm)
 		if err != nil {
 			return err
 		}
 	}
-	err := p.write("{}")
+	err = p.write("{}")
 	if err != nil {
 		return err
 	}
@@ -88,27 +92,21 @@ func (p *prefs) new() error {
 }
 
 func (p *prefs) write(data string) error {
-	err := os.WriteFile(p.ConfigFile, []byte(data), os.ModePerm)
-	if err != nil {
-		return err
-	}
-	return nil
+	return os.WriteFile(p.ConfigFile, []byte(data), os.ModePerm)
 }
 
-func (p *prefs) read() (map[string]any, error) {
-	var m map[string]any
-	var err error
+func (p *prefs) read() (m map[string]any, err error) {
 	p.File, err = os.Open(p.ConfigFile)
 	if err != nil {
-		return m, err
+		return
 	}
 	f, err := os.ReadFile(p.ConfigFile)
 	if err != nil {
-		return m, err
+		return
 	}
 	err = json.Unmarshal(f, &m)
 	if err != nil {
-		return m, err
+		return
 	}
-	return m, nil
+	return
 }
