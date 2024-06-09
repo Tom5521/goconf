@@ -8,7 +8,7 @@ import (
 	"runtime"
 )
 
-const modePerm = 0600
+const modePerm = os.ModePerm
 
 type prefs struct {
 	ID         string
