@@ -2,18 +2,17 @@ package conf
 
 import (
 	"encoding/json"
-
-	msg "github.com/Tom5521/GoNotes/pkg/messages"
+	"fmt"
 )
 
 func (p *prefs) writeMap() {
 	d, err := json.MarshalIndent(p.Map, "", "	")
 	if err != nil {
-		msg.Error(err)
+		fmt.Println("ERROR: ", err)
 	}
 	err = p.write(d)
 	if err != nil {
-		msg.Error(err)
+		fmt.Println("ERROR: ", err)
 	}
 }
 
