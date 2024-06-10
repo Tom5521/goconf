@@ -15,7 +15,7 @@ type prefs struct {
 	Path       string
 	File       *os.File
 	ConfigFile string
-	Map        map[string]any
+	fmap       map[string]any
 }
 
 func newPrefs(id string) (p *prefs, err error) {
@@ -32,7 +32,7 @@ func newPrefs(id string) (p *prefs, err error) {
 			return p, err
 		}
 	}
-	p.Map, err = p.read()
+	p.fmap, err = p.read()
 	if err != nil {
 		return p, err
 	}

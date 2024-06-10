@@ -3,6 +3,9 @@ package conf
 // Preferences describes the ways that an app can save and load user preferences.
 type Preferences interface {
 	Read(key string) any
+
+	Map() map[string]any
+
 	Set(key string, value any)
 	// Bool looks up a bool value for the key
 	Bool(key string) bool

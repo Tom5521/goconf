@@ -6,7 +6,7 @@ import (
 )
 
 func (p *prefs) writeMap() {
-	d, err := json.MarshalIndent(p.Map, "", "	")
+	d, err := json.MarshalIndent(p.fmap, "", "	")
 	if err != nil {
 		fmt.Println("ERROR: ", err)
 	}
@@ -16,17 +16,21 @@ func (p *prefs) writeMap() {
 	}
 }
 
+func (p *prefs) Map() map[string]any {
+	return p.fmap
+}
+
 func (p *prefs) Set(key string, value any) {
-	p.Map[key] = value
+	p.fmap[key] = value
 	p.writeMap()
 }
 
 func (p *prefs) Read(key string) any {
-	return p.Map[key]
+	return p.fmap[key]
 }
 
 func (p *prefs) Bool(key string) bool {
-	v, ok := p.Map[key]
+	v, ok := p.fmap[key]
 	if !ok {
 		v = false
 		p.Set(key, v)
@@ -39,7 +43,7 @@ func (p *prefs) SetBool(key string, value bool) {
 }
 
 func (p *prefs) BoolList(key string) []bool {
-	v, ok := p.Map[key]
+	v, ok := p.fmap[key]
 	if !ok {
 		v = []bool(nil)
 		p.Set(key, v)
@@ -52,7 +56,7 @@ func (p *prefs) SetBoolList(key string, value []bool) {
 }
 
 func (p *prefs) Float(key string) float64 {
-	v, ok := p.Map[key]
+	v, ok := p.fmap[key]
 	if !ok {
 		v = 0.0
 		p.Set(key, v)
@@ -65,7 +69,7 @@ func (p *prefs) SetFloat(key string, value float64) {
 }
 
 func (p *prefs) FloatList(key string) []float64 {
-	v, ok := p.Map[key]
+	v, ok := p.fmap[key]
 	if !ok {
 		v = []float64(nil)
 		p.Set(key, v)
@@ -78,7 +82,7 @@ func (p *prefs) SetFloatList(key string, value []float64) {
 }
 
 func (p *prefs) Int(key string) int {
-	v, ok := p.Map[key]
+	v, ok := p.fmap[key]
 	if !ok {
 		v = 0
 		p.Set(key, v)
@@ -91,7 +95,7 @@ func (p *prefs) SetInt(key string, value int) {
 }
 
 func (p *prefs) IntList(key string) []int {
-	v, ok := p.Map[key]
+	v, ok := p.fmap[key]
 	if !ok {
 		v = []int(nil)
 		p.Set(key, v)
@@ -104,7 +108,7 @@ func (p *prefs) SetIntList(key string, value []int) {
 }
 
 func (p *prefs) String(key string) string {
-	v, ok := p.Map[key]
+	v, ok := p.fmap[key]
 	if !ok {
 		v = ""
 		p.Set(key, v)
@@ -117,7 +121,7 @@ func (p *prefs) SetString(key string, value string) {
 }
 
 func (p *prefs) StringList(key string) []string {
-	v, ok := p.Map[key]
+	v, ok := p.fmap[key]
 	if !ok {
 		v = []string(nil)
 		p.Set(key, v)
@@ -130,6 +134,6 @@ func (p *prefs) SetStringList(key string, value []string) {
 }
 
 func (p *prefs) RemoveValue(key string) {
-	delete(p.Map, key)
+	delete(p.fmap, key)
 	p.writeMap()
 }
