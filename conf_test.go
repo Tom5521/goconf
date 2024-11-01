@@ -11,7 +11,8 @@ import (
 func TestSet(t *testing.T) {
 	settings, err := conf.New("goconf-test")
 	if err != nil {
-		t.Fail()
+		t.Log(err)
+		t.FailNow()
 	}
 	value := 12341243
 	settings.SetInt("lol1", value)
