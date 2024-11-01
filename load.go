@@ -29,7 +29,7 @@ func (p *Preferences) findPath() (err error) {
 func (p *Preferences) loadConfigFile() (err error) {
 	p.configFile = p.path + "config.json"
 
-	p.file, err = os.OpenFile(p.configFile, os.O_RDWR|os.O_CREATE, os.ModePerm)
+	p.file, err = os.OpenFile(p.configFile, os.O_RDWR|os.O_TRUNC|os.O_CREATE, os.ModePerm)
 	if errors.Is(err, os.ErrNotExist) {
 		err = os.MkdirAll(p.path, os.ModePerm)
 		if err != nil {
