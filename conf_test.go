@@ -47,7 +47,7 @@ func TestCreateNewFields(t *testing.T) {
 		{"MEOW2", reflect.TypeFor[int]()},
 	}
 
-	settings.CreateNewFields(fields...)
+	settings.CreateNewFields(true, fields...)
 
 	v1 := settings.String("MEOW")
 	if v1 != "" {

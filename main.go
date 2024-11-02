@@ -10,8 +10,8 @@ type Preferences struct {
 	// If true, the file will be written every time a Set operation is executed.
 	Autosave bool
 
-	id   string
-	path string
+	id           string
+	configFolder string
 
 	values map[string]any
 
@@ -36,13 +36,16 @@ func New(id string) (p *Preferences, err error) {
 }
 
 type Field struct {
-	Name      string
+	Key       string
 	FieldType reflect.Type
 }
 
-func (p *Preferences) CreateNewFields(fields ...Field) {
+func (p *Preferences) CreateNewFields(overwrite bool, fields ...Field) {
 	for _, f := range fields {
-		p.Set(f.Name, reflect.Zero(f.FieldType).Interface())
+		if !overwrite && p.Check(f.Key) {
+			continue
+		}
+		p.Set(f.Key, reflect.Zero(f.FieldType).Interface())
 	}
 }
 

@@ -18,21 +18,21 @@ func (p *Preferences) findPath() (err error) {
 	}
 
 	if isUnix() {
-		p.path = fmt.Sprintf("%s/.config/%s/", usr.HomeDir, p.id)
+		p.configFolder = fmt.Sprintf("%s/.config/%s/", usr.HomeDir, p.id)
 	} else if runtime.GOOS == "windows" {
-		p.path = fmt.Sprintf("%s\\AppData\\Roaming\\%s\\", usr.HomeDir, p.id)
+		p.configFolder = fmt.Sprintf("%s\\AppData\\Roaming\\%s\\", usr.HomeDir, p.id)
 	}
 
 	return
 }
 
 func (p *Preferences) loadConfigFile() (err error) {
-	p.configFile = p.path + "config.json"
+	p.configFile = p.configFolder + "config.json"
 	p.values = make(map[string]any)
 
 	data, err := os.ReadFile(p.configFile)
 	if errors.Is(err, os.ErrNotExist) {
-		err = os.MkdirAll(p.path, os.ModePerm)
+		err = os.MkdirAll(p.configFolder, os.ModePerm)
 		if err != nil {
 			return err
 		}
