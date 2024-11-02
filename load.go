@@ -9,7 +9,7 @@ import (
 	"runtime"
 )
 
-func (p *Preferences) findPath() (err error) {
+func (p *Preferences) findPaths() (err error) {
 	var usr *user.User
 
 	usr, err = user.Current()
@@ -22,14 +22,12 @@ func (p *Preferences) findPath() (err error) {
 	} else if runtime.GOOS == "windows" {
 		p.configFolder = fmt.Sprintf("%s\\AppData\\Roaming\\%s\\", usr.HomeDir, p.id)
 	}
+	p.configFile = p.configFolder + "config.json"
 
 	return
 }
 
 func (p *Preferences) loadConfigFile() (err error) {
-	p.configFile = p.configFolder + "config.json"
-	p.values = make(map[string]any)
-
 	data, err := os.ReadFile(p.configFile)
 	if errors.Is(err, os.ErrNotExist) {
 		err = os.MkdirAll(p.configFolder, os.ModePerm)

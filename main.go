@@ -23,9 +23,10 @@ type Preferences struct {
 func New(id string) (p *Preferences, err error) {
 	p = &Preferences{
 		id:       id,
+		values:   make(map[string]any),
 		Autosave: true,
 	}
-	err = p.findPath()
+	err = p.findPaths()
 	if err != nil {
 		return
 	}
@@ -51,6 +52,10 @@ func (p *Preferences) CreateNewFields(overwrite bool, fields ...Field) {
 
 func (p Preferences) ConfigFile() string {
 	return p.configFile
+}
+
+func (p Preferences) ID() string {
+	return p.id
 }
 
 func (p Preferences) Values() map[string]any {

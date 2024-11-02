@@ -2,6 +2,10 @@ package conf
 
 import "reflect"
 
+func SetFor[T any](p *Preferences, key string, v T) {
+	p.Set(key, v)
+}
+
 func (p *Preferences) SetValue(key string, value reflect.Value) {
 	p.values[key] = value.Interface()
 }
