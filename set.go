@@ -8,6 +8,9 @@ func (p *Preferences) SetValue(key string, value reflect.Value) {
 
 func (p *Preferences) Set(key string, value any) {
 	p.values[key] = value
+	if p.Autosave {
+		p.autoSaveErr = p.Save()
+	}
 }
 
 func (p *Preferences) SetBool(key string, value bool) {

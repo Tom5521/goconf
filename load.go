@@ -28,8 +28,9 @@ func (p *Preferences) findPath() (err error) {
 
 func (p *Preferences) loadConfigFile() (err error) {
 	p.configFile = p.path + "config.json"
+	p.values = make(map[string]any)
 
-	p.file, err = os.OpenFile(p.configFile, os.O_RDWR|os.O_TRUNC|os.O_CREATE, os.ModePerm)
+	data, err := os.ReadFile(p.configFile)
 	if errors.Is(err, os.ErrNotExist) {
 		err = os.MkdirAll(p.path, os.ModePerm)
 		if err != nil {
@@ -45,8 +46,5 @@ func (p *Preferences) loadConfigFile() (err error) {
 		return err
 	}
 
-	p.decoder = json.NewDecoder(p.file)
-	p.encoder = json.NewEncoder(p.file)
-
-	return p.decoder.Decode(&p.values)
+	return json.Unmarshal(data, &p.values)
 }
