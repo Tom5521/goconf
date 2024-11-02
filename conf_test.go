@@ -28,7 +28,7 @@ func TestSet(t *testing.T) {
 	}
 	settings.SetInt("lol1", 3)
 	fmt.Println(settings.Int("lol1"))
-	for i := range 1000 {
+	for i := 0; i < 1000; i++ {
 		settings.SetInt(strconv.Itoa(i), i)
 	}
 }
