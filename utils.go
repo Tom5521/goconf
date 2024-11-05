@@ -4,7 +4,7 @@ import (
 	"runtime"
 )
 
-func isUnix() bool {
+var IsUnix = func() bool {
 	unixes := [...]string{
 		"netbsd",
 		"linux",
@@ -18,4 +18,4 @@ func isUnix() bool {
 		}
 	}
 	return false
-}
+}()

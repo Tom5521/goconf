@@ -12,12 +12,9 @@ type Preferences struct {
 
 	id           string
 	configFolder string
-
-	values map[string]any
-
-	configFile string
-
-	autoSaveErr error
+	values       map[string]any
+	configFile   string
+	autoSaveErr  error
 }
 
 func New(id string) (p *Preferences, err error) {
@@ -47,6 +44,9 @@ func (p *Preferences) CreateNewFields(overwrite bool, fields ...Field) {
 			continue
 		}
 		p.Set(f.Key, reflect.Zero(f.FieldType).Interface())
+		if p.autoSaveErr != nil {
+			break
+		}
 	}
 }
 
