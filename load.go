@@ -3,24 +3,13 @@ package conf
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"os"
-	"os/user"
-	"runtime"
 )
 
 func (p *Preferences) findPaths() (err error) {
-	var usr *user.User
-
-	usr, err = user.Current()
+	p.configFolder, err = os.UserConfigDir()
 	if err != nil {
 		return
-	}
-
-	if IsUnix {
-		p.configFolder = fmt.Sprintf("%s/.config/%s/", usr.HomeDir, p.id)
-	} else if runtime.GOOS == "windows" {
-		p.configFolder = fmt.Sprintf("%s\\AppData\\Roaming\\%s\\", usr.HomeDir, p.id)
 	}
 
 	p.configFile = p.configFolder + "config.json"
