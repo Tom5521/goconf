@@ -3,7 +3,6 @@ package conf
 import (
 	"encoding/json"
 	"os"
-	"reflect"
 )
 
 type Preferences struct {
@@ -12,9 +11,11 @@ type Preferences struct {
 
 	id           string
 	configFolder string
-	values       map[string]any
-	configFile   string
-	autoSaveErr  error
+
+	values map[string]any
+
+	configFile  string
+	autoSaveErr error
 }
 
 func New(id string) (p *Preferences, err error) {
@@ -34,8 +35,8 @@ func New(id string) (p *Preferences, err error) {
 }
 
 type Field struct {
-	Key       string
-	FieldType reflect.Type
+	Key     string
+	Default any
 }
 
 func (p *Preferences) CreateNewFields(overwrite bool, fields ...Field) {
@@ -43,7 +44,8 @@ func (p *Preferences) CreateNewFields(overwrite bool, fields ...Field) {
 		if !overwrite && p.Check(f.Key) {
 			continue
 		}
-		p.Set(f.Key, reflect.Zero(f.FieldType).Interface())
+
+		p.Set(f.Key, f.Default)
 		if p.autoSaveErr != nil {
 			break
 		}

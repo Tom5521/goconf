@@ -3,6 +3,7 @@ package conf
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 )
 
@@ -11,9 +12,11 @@ func (p *Preferences) findPaths() (err error) {
 	if err != nil {
 		return
 	}
+	p.configFolder += "/" + p.ID()
 
-	p.configFile = p.configFolder + "config.json"
+	p.configFile = p.configFolder + "/config.json"
 
+	fmt.Println(p.configFolder)
 	return
 }
 

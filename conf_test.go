@@ -2,7 +2,6 @@ package conf_test
 
 import (
 	"fmt"
-	"reflect"
 	"strconv"
 	"testing"
 
@@ -43,8 +42,8 @@ func TestGet(t *testing.T) {
 
 func TestCreateNewFields(t *testing.T) {
 	fields := []conf.Field{
-		{"MEOW", reflect.TypeFor[string]()},
-		{"MEOW2", reflect.TypeFor[int]()},
+		{"MEOW", ""},
+		{"MEOW2", 0},
 	}
 
 	settings.CreateNewFields(true, fields...)

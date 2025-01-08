@@ -5,7 +5,7 @@ func (p *Preferences) Check(key string) bool {
 	return c
 }
 
-func (p *Preferences) Get(key string) any {
+func (p *Preferences) Load(key string) any {
 	return p.values[key]
 }
 
